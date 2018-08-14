@@ -1,8 +1,7 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace RelationshipHistoryBoard.Models
 {
@@ -29,5 +28,15 @@ namespace RelationshipHistoryBoard.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<RelationshipHistoryBoard.Models.Survey> Surveys { get; set; }
+
+        public System.Data.Entity.DbSet<RelationshipHistoryBoard.Models.SurveyOccation> SurveyOccations { get; set; }
+
+        public System.Data.Entity.DbSet<RelationshipHistoryBoard.Models.Question> Questions { get; set; }
+
+        public System.Data.Entity.DbSet<RelationshipHistoryBoard.Models.FeedBack> FeedBacks { get; set; }
+
+        public System.Data.Entity.DbSet<RelationshipHistoryBoard.Models.UserGroup> UserGroups { get; set; }
     }
 }
