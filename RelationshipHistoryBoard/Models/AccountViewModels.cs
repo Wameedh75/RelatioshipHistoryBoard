@@ -79,6 +79,14 @@ namespace RelationshipHistoryBoard.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public int UserGroupId { get; set; }
+        public virtual UserGroup UserGroup { get; set; }
+
+        public string Name { get; set; }
+
+        public virtual IEnumerable<FeedBack> FeedBacks { get; set; }
+       
     }
 
     public class ResetPasswordViewModel
