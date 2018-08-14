@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RelationshipHistoryBoard.Models;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using RelationshipHistoryBoard.Models;
 
 namespace RelationshipHistoryBoard.Controllers
 {
@@ -29,6 +26,12 @@ namespace RelationshipHistoryBoard.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SurveyOccation surveyOccation = db.SurveyOccations.Find(id);
+            var questions = db.Questions.Where(sq => sq.SurveyOccation.Id == id);
+            if (surveyOccation!= null)
+            {
+                surveyOccation.Questionses = questions;
+            }
+
             if (surveyOccation == null)
             {
                 return HttpNotFound();

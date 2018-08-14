@@ -1,5 +1,5 @@
 ﻿@model RelationshipHistoryBoard.Models.SurveyOccation
-
+@*@model RelationshipHistoryBoard.Models*@
 @{
     ViewBag.Title = "Details";
 }
@@ -33,6 +33,16 @@
         <dd>
             @Html.DisplayFor(model => model.EndDate)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Questionses)
+        </dt>
+        @foreach (var item in Model.Questionses)
+        {
+            
+            <dd>
+                @Html.DisplayFor(model => item.QuestionText)
+            </dd>
+        }
 
     </dl>
 </div>

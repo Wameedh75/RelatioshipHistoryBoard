@@ -1,20 +1,18 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using RelationshipHistoryBoard.Models;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace RelationshipHistoryBoard.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -79,7 +77,7 @@ namespace RelationshipHistoryBoard.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index","SurveyOccations");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -139,6 +137,7 @@ namespace RelationshipHistoryBoard.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.usergroupid = new SelectList(db.UserGroups, "Id", "Name");
             return View();
         }
 
@@ -163,11 +162,11 @@ namespace RelationshipHistoryBoard.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "SurveyOccations");
                 }
                 AddErrors(result);
             }
-
+            ViewBag.usergroupid = new SelectList(db.UserGroups, "Id", "Name",model);
             // If we got this far, something failed, redisplay form
             return View(model);
         }
