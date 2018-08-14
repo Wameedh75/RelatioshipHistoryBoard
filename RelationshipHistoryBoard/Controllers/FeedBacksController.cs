@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RelationshipHistoryBoard.Models;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using RelationshipHistoryBoard.Models;
 
 namespace RelationshipHistoryBoard.Controllers
 {
@@ -37,9 +34,11 @@ namespace RelationshipHistoryBoard.Controllers
         }
 
         // GET: FeedBacks/Create
-        public ActionResult Create()
+        public ActionResult Create( int? id)
         {
-            ViewBag.QuestionId = new SelectList(db.Questions, "Id", "QuestionText");
+            //var surveyOccation = db.SurveyOccations.Where(so => so.Id == id);
+            var questions = db.Questions.Where(q => q.SurveyOccation.Id == id);
+            ViewBag.QuestionId = new SelectList(questions, "Id", "QuestionText");
             return View();
         }
 
